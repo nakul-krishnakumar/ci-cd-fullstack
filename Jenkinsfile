@@ -33,11 +33,11 @@ pipeline {
                     usernameVariable: 'DOCKER_USER',
                     passwordVariable: 'DOCKER_PASS'
                 )]) {
-				sh '''
+				sh """
 					mkdir -p ~/.docker
 					echo '{"credsStore":""}' > ~/.docker/config.json
 					echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
-            	'''
+            	"""
                 }
             }
         }
@@ -56,12 +56,12 @@ pipeline {
         always {
             echo 'Pipeline completed'
 
-            sh '''
+            sh """
             docker rmi frontend-image || true
             docker rmi backend-image || true
             docker rmi $FRONTEND_IMAGE:latest || true
             docker rmi $BACKEND_IMAGE:latest || true
-            '''
+            """
         }
     }
 }
