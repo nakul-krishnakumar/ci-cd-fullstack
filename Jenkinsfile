@@ -13,7 +13,7 @@ pipeline {
 
         stage('Checkout Code') {
             steps {
-                git 'https://github.com/nakul-krishnakumar/ci-cd-fullstack.git'
+                git branch: 'main', url: 'https://github.com/nakul-krishnakumar/ci-cd-fullstack.git'
             }
         }
 
