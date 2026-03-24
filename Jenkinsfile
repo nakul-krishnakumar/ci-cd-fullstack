@@ -48,9 +48,16 @@ pipeline {
         }
     }
 
-    post {
+	post {
         always {
-            sh "docker logout"
+            echo 'Pipeline completed'
+
+            sh '''
+            docker rmi frontend-image || true
+            docker rmi backend-image || true
+            docker rmi $FRONTEND_IMAGE:latest || true
+            docker rmi $BACKEND_IMAGE:latest || true
+            '''
         }
     }
 }
